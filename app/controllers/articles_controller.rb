@@ -28,6 +28,23 @@ class ArticlesController < ApplicationController
     end
   end
 
+  # fetches the article from the database without updating > used in form building
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  # updates article using article_params helper for security
+  # throws error if unsuccesful
+  def update
+    @article = Article.find(params[:id])
+
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   # define params allowed in helper article_params for article (title & body)
   private
     def article_params
