@@ -4,8 +4,7 @@
 	<% @articles.each do |article| %>
 	<li>
 		<%# clickable title to link to article's page %>
-		<a href="/articles/<%= article.id %>">
-		<%= article.title %>
+		<%= link_to article.title, article %>
 		</li>
 		<% end %>
 </ul>
