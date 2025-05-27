@@ -10,31 +10,14 @@
                   } %>
 
 <h2>Comments</h2>
-<%# list of comments associated with the article %>
-<% @article.comments.each do |comment| %>
-  <p>
-    <strong>Commenter:</strong>
-    <%= comment.commenter %>
-  </p>
-
-  <p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
-<% end %>
+<%# list of comments associated with the article using _comment.html.erb %>
+<%# display 'no comments' if none have been created %>
+   <% if @article.comments.empty? %>
+        <p>no comments</p>
+			<% else %>
+				<%= render @article.comments %>
+   <% end %>
 
 <h2>Add a comment:</h2>
-<%# form that creates a new comment by calling the CommentsController create action %>
-<%= form_with model: [ @article, @article.comments.build ] do |form| %>
-  <p>
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter %>
-  </p>
-  <p>
-    <%= form.label :body %><br>
-    <%= form.text_area :body %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<%# use form partial in comments folder (_form.html.erb) %>
+<%= render "comments/form", article: @article %>
