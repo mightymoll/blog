@@ -45,6 +45,14 @@ class ArticlesController < ApplicationController
     end
   end
 
+  # delete an article based on id & redirect to root path
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    redirect_to root_path, status: :see_other
+  end
+
   # define params allowed in helper article_params for article (title & body)
   private
     def article_params
